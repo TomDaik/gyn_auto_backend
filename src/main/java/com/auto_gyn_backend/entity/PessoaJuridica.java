@@ -6,10 +6,10 @@ import jakarta.persistence.Entity;
 @Entity
 public class PessoaJuridica extends Pessoa {
 
-    @Column(name = "cnpj", nullable = false)
+    @Column(name = "cnpj", nullable = false, unique = true)
     private String cnpj;
 
-    @Column(name = "razaoSocial", nullable = false)
+    @Column(name = "razao_social", nullable = false)
     private String razaoSocial;
 
     public PessoaJuridica() {

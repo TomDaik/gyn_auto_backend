@@ -7,22 +7,25 @@ import jakarta.persistence.*;
 public class Servico {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @Column(name = "valorUnitario", nullable = false)
-    private int valorUnitario;
+    @Column(name = "valor_unitario", nullable = false)
+    private Double valorUnitario;
 
-    public Servico() {}
+    public Servico() {
+    }
 
-    public Servico(Integer id, String descricao, int valorUnitario) {
+    public Servico(Integer id, String descricao, Double valorUnitario) {
         this.id = id;
         this.descricao = descricao;
         this.valorUnitario = valorUnitario;
     }
+
+    // Getters e Setters
 
     public Integer getId() {
         return id;
@@ -40,11 +43,11 @@ public class Servico {
         this.descricao = descricao;
     }
 
-    public int getValorUnitario() {
+    public Double getValorUnitario() {
         return valorUnitario;
     }
 
-    public void setValorUnitario(int valorUnitario) {
+    public void setValorUnitario(Double valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 }

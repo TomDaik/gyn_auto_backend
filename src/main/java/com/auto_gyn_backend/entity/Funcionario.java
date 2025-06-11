@@ -1,50 +1,40 @@
 package com.auto_gyn_backend.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
-public class Funcionario {
+@Table(name = "funcionario") // Garante que a tabela tenha um nome específico
+public class Funcionario extends PessoaFisica {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "nome", nullable = false)
-    private String nome;
-
-    @Column(name = "cpf", nullable = false, unique = true, length = 14)
-    private String cpf;
+    private String cargo;
+    private double salario;
 
     public Funcionario() {
+        super();
     }
 
-    public Funcionario(Long id, String nome, String cpf) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
+    // Construtor para facilitar a criação
+    public Funcionario(Long id, String nome, String endereco, String telefone, String cpf, LocalDate dataNascimento, String cargo, double salario) {
+        super(id, nome, endereco, telefone, cpf, dataNascimento);
+        this.cargo = cargo;
+        this.salario = salario;
     }
 
-    public Long getId() {
-        return id;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
-    public String getCpf() {
-        return cpf;
+    public double getSalario() {
+        return salario;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setSalario(double salario) {
+        this.salario = salario;
     }
 }

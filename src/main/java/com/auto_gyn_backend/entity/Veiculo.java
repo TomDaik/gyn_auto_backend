@@ -7,7 +7,7 @@ public class Veiculo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idVeiculo;
+    private Integer idVeiculo;
 
     @Column(name = "marca", nullable = false)
     private String marca;
@@ -24,20 +24,21 @@ public class Veiculo {
     @Column(name = "quilometragem", nullable = false)
     private Integer quilometragem;
 
-    @Column(name = "idCliente", nullable = false)
-    private Integer idCliente;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_cliente", nullable = false)
+    private Pessoa proprietario;
 
     public Veiculo() {
     }
 
-    public Veiculo(int idVeiculo, String marca, String modelo, Integer ano, String placa, Integer quilometragem, Integer idCliente) {
+    public Veiculo(int idVeiculo, String marca, String modelo, Integer ano, String placa, Integer quilometragem, Pessoa proprietario) {
         this.idVeiculo = idVeiculo;
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
         this.placa = placa;
         this.quilometragem = quilometragem;
-        this.idCliente = idCliente;
+        this.proprietario = proprietario;
     }
 
     public int getIdVeiculo() {
@@ -88,11 +89,11 @@ public class Veiculo {
         this.quilometragem = quilometragem;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public Pessoa getProprietario() {
+        return proprietario;
     }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    public void setProprietario(Pessoa proprietario) {
+        this.proprietario = proprietario;
     }
 }

@@ -2,15 +2,15 @@ package com.auto_gyn_backend.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-
 import java.time.LocalDate;
 
 @Entity
 public class PessoaFisica extends Pessoa {
 
-    @Column(name = "cpf", nullable = false)
+    @Column(name = "cpf", nullable = false, unique = true)
     private String cpf;
-    @Column(name = "dateNascimento", nullable = false)
+
+    @Column(name = "dataNascimento", nullable = false)
     private LocalDate dataNascimento;
 
     public PessoaFisica() {
