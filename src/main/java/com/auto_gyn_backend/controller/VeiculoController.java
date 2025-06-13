@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/veiculo")
@@ -21,7 +20,7 @@ public class VeiculoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Veiculo> buscarPorId(@PathVariable int id) {
+    public Veiculo buscarPorId(@PathVariable Long id) {
         return VeiculoService.findById(id);
     }
 
@@ -36,7 +35,7 @@ public class VeiculoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable int id) {
+    public void deletar(@PathVariable Long id) {
         VeiculoService.delete(id);
     }
 

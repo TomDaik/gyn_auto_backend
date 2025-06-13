@@ -48,6 +48,12 @@ public class OrdemServico {
     public OrdemServico() {
     }
 
+    public OrdemServico(Pessoa cliente, Veiculo veiculo, LocalDate dataAbertura) {
+        this.cliente = cliente;
+        this.veiculo = veiculo;
+        this.dataAbertura = dataAbertura;
+    }
+
     // --- Métodos utilitários ---
 
     public void adicionarServico(Servico servico, Funcionario funcionario) {

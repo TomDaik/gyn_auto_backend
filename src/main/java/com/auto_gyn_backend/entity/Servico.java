@@ -8,7 +8,7 @@ public class Servico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "descricao", nullable = false)
     private String descricao;
@@ -19,7 +19,7 @@ public class Servico {
     public Servico() {
     }
 
-    public Servico(Integer id, String descricao, Double valorUnitario) {
+    public Servico(Long id, String descricao, Double valorUnitario) {
         this.id = id;
         this.descricao = descricao;
         this.valorUnitario = valorUnitario;
@@ -27,11 +27,11 @@ public class Servico {
 
     // Getters e Setters
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
