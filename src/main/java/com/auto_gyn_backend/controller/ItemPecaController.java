@@ -1,42 +1,36 @@
 package com.auto_gyn_backend.controller;
 
-import com.auto_gyn_backend.entity.ItemPeca;
-import com.auto_gyn_backend.service.ItemPecaService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.auto_gyn_backend.dto.ItemPecaDTO;
+import com.auto_gyn_backend.dto.OrdemServicoResponseDTO;
+import com.auto_gyn_backend.service.OrdemServicoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/item_peca")
+@RequestMapping("/api/ordens-servico/{osId}/pecas") // As rotas são aninhadas na OS
 public class ItemPecaController {
 
-    @Autowired
-    private ItemPecaService itemPecaService;
+    private final OrdemServicoService ordemServicoService;
 
-    @GetMapping
-    public List<ItemPeca> listarTodos() {
-        return itemPecaService.findAll();
+    public ItemPecaController(OrdemServicoService ordemServicoService) {
+        this.ordemServicoService = ordemServicoService;
     }
 
-    @GetMapping("/{id}")
-    public ItemPeca buscarPorId(@PathVariable Long id) {
-        return itemPecaService.findById(id);
-    }
-
+    /**
+     * Endpoint para ADICIONAR uma peça a uma OS existente.
+     */
     @PostMapping
-    public ItemPeca criar(@RequestBody ItemPeca itemPeca) {
-        return itemPecaService.save(itemPeca);
+    public ResponseEntity<OrdemServicoResponseDTO> adicionarPeca(@PathVariable Long osId, @RequestBody ItemPecaDTO itemDto) {
+        OrdemServicoResponseDTO osAtualizada = ordemServicoService.adicionarPecaEmOS(osId, itemDto);
+        return ResponseEntity.ok(osAtualizada);
     }
 
-    @PutMapping("/{id}")
-    public ItemPeca atualizar(@RequestBody ItemPeca itemPeca) {
-        return itemPecaService.save(itemPeca);
+    /**
+     * Endpoint para REMOVER uma peça de uma OS existente.
+     */
+    @DeleteMapping("/{itemPecaId}")
+    public ResponseEntity<Void> removerPeca(@PathVariable Long osId, @PathVariable Long itemPecaId) {
+        ordemServicoService.removerPecaDeOS(osId, itemPecaId);
+        return ResponseEntity.noContent().build();
     }
-
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        itemPecaService.delete(id);
-    }
-
 }

@@ -81,6 +81,19 @@ public class PessoaFisicaService {
         return toDTO(pessoa);
     }
 
+    /**
+     * Busca uma Pessoa Física pelo seu CPF.
+     */
+    @Transactional(readOnly = true)
+    public PessoaFisicaDTO findByCpf(String cpf) {
+        // Remove qualquer formatação do CPF para a busca
+        String cpfLimpo = cpf.replaceAll("[^0-9]", "");
+
+        return pessoaFisicaRepository.findByCpf(cpfLimpo)
+                .map(this::toDTO) // Se encontrar, converte para DTO
+                .orElseThrow(() -> new IllegalArgumentException("Pessoa Física com CPF " + cpf + " não encontrada."));
+    }
+
     @Transactional
     public void delete(Long id) {
         if (!pessoaFisicaRepository.existsById(id)) {

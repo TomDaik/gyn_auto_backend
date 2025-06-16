@@ -1,42 +1,36 @@
 package com.auto_gyn_backend.controller;
 
-import com.auto_gyn_backend.entity.ItemServico;
-import com.auto_gyn_backend.service.ItemServicoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.auto_gyn_backend.dto.ItemServicoDTO; // <<< MUDANÇA AQUI
+import com.auto_gyn_backend.dto.OrdemServicoResponseDTO;
+import com.auto_gyn_backend.service.OrdemServicoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/item_servico")
+@RequestMapping("/api/ordens-servico/{osId}/servicos")
 public class ItemServicoController {
 
-    @Autowired
-    private ItemServicoService itemServicoService;
+    private final OrdemServicoService ordemServicoService;
 
-    @GetMapping
-    public List<ItemServico> listarTodos() {
-        return itemServicoService.findAll();
+    public ItemServicoController(OrdemServicoService ordemServicoService) {
+        this.ordemServicoService = ordemServicoService;
     }
 
-    @GetMapping("/{id}")
-    public ItemServico buscarPorId(@PathVariable Long id) {
-        return itemServicoService.findById(id);
-    }
-
+    /**
+     * Endpoint para ADICIONAR um serviço a uma OS existente.
+     */
     @PostMapping
-    public ItemServico criar(@RequestBody ItemServico itemServico) {
-        return itemServicoService.save(itemServico);
+    public ResponseEntity<OrdemServicoResponseDTO> adicionarServico(@PathVariable Long osId, @RequestBody ItemServicoDTO itemDto) { // <<< MUDANÇA AQUI
+        OrdemServicoResponseDTO osAtualizada = ordemServicoService.adicionarServicoEmOS(osId, itemDto);
+        return ResponseEntity.ok(osAtualizada);
     }
 
-    @PutMapping("/{id}")
-    public ItemServico atualizar(@RequestBody ItemServico itemServico) {
-        return itemServicoService.save(itemServico);
+    /**
+     * Endpoint para REMOVER um serviço de uma OS existente.
+     */
+    @DeleteMapping("/{itemServicoId}")
+    public ResponseEntity<Void> removerServico(@PathVariable Long osId, @PathVariable Long itemServicoId) {
+        ordemServicoService.removerServicoDeOS(osId, itemServicoId);
+        return ResponseEntity.noContent().build();
     }
-
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        itemServicoService.delete(id);
-    }
-
 }

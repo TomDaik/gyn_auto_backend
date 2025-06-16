@@ -16,7 +16,7 @@ public class OrdemServico {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente")
-    private Pessoa cliente;
+    private PessoaFisica cliente;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_veiculo")
@@ -48,7 +48,7 @@ public class OrdemServico {
     public OrdemServico() {
     }
 
-    public OrdemServico(Pessoa cliente, Veiculo veiculo, LocalDate dataAbertura) {
+    public OrdemServico(PessoaFisica cliente, Veiculo veiculo, LocalDate dataAbertura) {
         this.cliente = cliente;
         this.veiculo = veiculo;
         this.dataAbertura = dataAbertura;
@@ -84,11 +84,11 @@ public class OrdemServico {
         this.id = id;
     }
 
-    public Pessoa getCliente() {
+    public PessoaFisica getCliente() {
         return cliente;
     }
 
-    public void setCliente(Pessoa cliente) {
+    public void setCliente(PessoaFisica cliente) {
         this.cliente = cliente;
     }
 

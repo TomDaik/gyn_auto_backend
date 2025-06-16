@@ -32,6 +32,16 @@ public class PessoaFisicaController {
         return ResponseEntity.ok(dto); // Retorna 200 OK com o objeto encontrado
     }
 
+    /**
+     * Endpoint para buscar uma pessoa física pelo CPF.
+     * Retorna 200 OK com os dados da pessoa física.
+     */
+    @GetMapping("/cpf/{cpf}")
+    public ResponseEntity<PessoaFisicaDTO> buscarPorCpf(@PathVariable String cpf) {
+        PessoaFisicaDTO dto = pessoaFisicaService.findByCpf(cpf);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping
     public ResponseEntity<PessoaFisicaDTO> criar(@RequestBody PessoaFisicaCreateDTO createDTO) {
         PessoaFisicaDTO dtoSalvo = pessoaFisicaService.save(createDTO);

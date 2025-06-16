@@ -26,12 +26,12 @@ public class Veiculo {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente", nullable = false)
-    private Pessoa proprietario;
+    private PessoaFisica proprietario; // <<< ALTERAÇÃO AQUI
 
     public Veiculo() {
     }
 
-    public Veiculo(Long idVeiculo, String marca, String modelo, Integer ano, String placa, Integer quilometragem, Pessoa proprietario) {
+    public Veiculo(Long idVeiculo, String marca, String modelo, Integer ano, String placa, Integer quilometragem, PessoaFisica proprietario) {
         this.idVeiculo = idVeiculo;
         this.marca = marca;
         this.modelo = modelo;
@@ -89,11 +89,11 @@ public class Veiculo {
         this.quilometragem = quilometragem;
     }
 
-    public Pessoa getProprietario() {
+    public PessoaFisica getProprietario() {
         return proprietario;
     }
 
-    public void setProprietario(Pessoa proprietario) {
+    public void setProprietario(PessoaFisica proprietario) {
         this.proprietario = proprietario;
     }
 }
